@@ -4,79 +4,92 @@
     ViewBag.Title = "MakaleDetay";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Microsoft.Web.Helpers;
+
+<!-- Title -->
+<h1 class="mt-4">@Model.Baslik  </h1>
+<!-- Author -->
+<p class="lead">
+    by
+    <a href="/Uye/UyeProfil/@Model.Uye.UyeId">@Model.Uye.KullaniciAdi</a>
+    <img src="@Model.Uye.Foto" class="img-circle img-responsive" width="25" />
+</p>
+<h6><small>@Model.Kategori.KategoriAdi (@Model.Kategori.Makales.Count())</small></h6>
+<h6><small> Yorum(@Model.Yorums.Count())</small></h6>
+<hr>
+<!-- Date/Time -->
+<p> @String.Format("{0:D}", Model.Tarih)</p>
+<hr>
+<!-- Preview Image -->
+<img class="img-fluid rounded" src="@Model.Foto" alt="">
+<hr>
+<!-- Post Content -->
+<p class="lead">
+    @Html.Raw(@Model.Icerik)
+</p>
+<div class="well">
+    <b><small>Etiketler:</small></b>
+    @foreach (var item in Model.Etikets)
+    {
+        <small>@item.EtiketAdi</small>
+    }
+</div>
 
 
-    <!-- Title -->
-    <h1 class="mt-4">@Model.Baslik  </h1>
-    <!-- Author -->
-    <p class="lead">
-        by
-        <a href="/Uye/UyeProfil/@Model.Uye.UyeId">@Model.Uye.KullaniciAdi</a>
-        <img src="@Model.Uye.Foto" class="img-circle img-responsive" width="25" />
-    </p>
-    <h6><small>@Model.Kategori.KategoriAdi (@Model.Kategori.Makales.Count())</small></h6>
-    <h6><small> Yorum(@Model.Yorums.Count())</small></h6>
-    <hr>
-    <!-- Date/Time -->
-    <p> @String.Format("{0:D}", Model.Tarih)</p>
-    <hr>
-    <!-- Preview Image -->
-    <img class="img-fluid rounded" src="@Model.Foto" alt="">
-    <hr>
-    <!-- Post Content -->
-    <p class="lead">
-        @Html.Raw(@Model.Icerik)
-    </p>
-    <div class="well">
-        <b><small>Etiketler:</small></b>
-        @foreach (var item in Model.Etikets)
-        {
-            <small>@item.EtiketAdi</small>
-        }
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/tr_TR/sdk.js#xfbml=1&version=v3.0&appId=397462490763009&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div class="fb-comments" data-href="http://www.yazilimblog.somee.com/Home/MakaleDetay/@Model.MakaleId" data-numposts="5"></div>
+
+
+<hr>
+<!-- Comments Form -->
+@if (Session["uyeid"] != null)
+{
+    <div class="card my-4">
+        <h5 class="card-header">Yorum bırak:</h5>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <textarea id="yorum" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" id="gonder" class="btn btn-primary">Yorum Yap</button>
+            </form>
+        </div>
     </div>
+}
+else
+{
+    <h2>Makaleye yorum yapmak için kullanıcı girişi yapmalısınız.</h2>
+    <h4><a href="/Uye/Login/">Giriş Yap</a></h4>
+}
 
+<!-- Single Comment -->
 
-
-    <hr>
-    <!-- Comments Form -->
-    @if (Session["uyeid"] != null)
-    {
-        <div class="card my-4">
-            <h5 class="card-header">Yorum bırak:</h5>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <textarea id="yorum" class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" id="gonder" class="btn btn-primary">Yorum Yap</button>
-                </form>
-            </div>
+@foreach (var item in Model.Yorums.ToList().OrderByDescending(x => x.Tarih))
+{
+    <div class="media mb-4">
+        <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" alt="" width="70">
+        <div class="media-body">
+            <h5 class="mt-0">@item.Uye.KullaniciAdi <small>@item.Tarih</small></h5>
+            @item.Icerik @if (Convert.ToInt32(Session["uyeid"]) == item.UyeId)
+            {
+                <a class="btn-link" href="/Home/YorumSil/@item.YorumId">Sil</a>
+            }
         </div>
-    }
-    else
-    {
-        <h2>Makaleye yorum yapmak için kullanıcı girişi yapmalısınız.</h2>
-        <h4><a href="/Uye/Login/">Giriş Yap</a></h4>
-    }
+    </div>
+}
 
-    <!-- Single Comment -->
 
-    @foreach (var item in Model.Yorums.ToList().OrderByDescending(x => x.Tarih))
-    {
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" alt="" width="70">
-            <div class="media-body">
-                <h5 class="mt-0">@item.Uye.KullaniciAdi <small>@item.Tarih</small></h5>
-                @item.Icerik @if (Convert.ToInt32(Session["uyeid"]) == item.UyeId)
-                {
-                    <a class="btn-link" href="/Home/YorumSil/@item.YorumId">Sil</a>
-                }
-            </div>
-        </div>
-    }
-        
 
-  
 <script src="~/Content/Blog/vendor/jquery/jquery.min.js"></script>
 
 <script src="~/Content/Blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
