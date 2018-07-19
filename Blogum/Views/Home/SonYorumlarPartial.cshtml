@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Blogum.Models.Yorum>
+@{
+    Layout = null;
+}
+
+@*<ul>
+        @foreach (var item in Model)
+        {
+            <li class="list-group"><a href="/Home/MakaleDetay/@item.MakaleId"><img src="@item.Uye.Foto" width="20" /> @item.Icerik</a> <small>(@item.Uye.KullaniciAdi)</small> </li>
+        }
+    </ul>*@
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-bell-o"></i> Son Yorumlar
+    </div>
+    <div class="list-group list-group-flush small">
+        @foreach (var item in Model)
+        {
+            <a class="list-group-item list-group-item-action" href="/Home/MakaleDetay/@item.MakaleId">
+                <div class="media">
+                    <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" alt="" width="50">
+                    <div class="media-body">
+                        <strong> @item.Uye.KullaniciAdi </strong>adlı kullanıcı @item.Makale.Baslik makalesine yorum yaptı.
+
+                        <div class="text-muted smaller">@item.Tarih</div>
+                    </div>
+                </div>
+            </a>
+        }
+
+
+
+       
+    </div>
+    
+</div>

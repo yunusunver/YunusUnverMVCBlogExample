@@ -1,0 +1,43 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Blogum.Models.Makale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@foreach (var item in Model)
+{
+    <div class="card mb-4">
+        <img class="card-img-top" src="@item.Foto" alt="Card image cap">
+        <div class="card-body">
+            <h2 class="card-title">@item.Baslik</h2>
+            @if (item.Icerik.Length > 150)
+            {
+                <p> @Html.Raw(item.Icerik.Substring(0, 150)) ...</p>
+            }
+            else
+            {
+                <p> @Html.Raw(item.Icerik)</p>
+            }
+
+            <a href="/Home/MakaleDetay/@item.MakaleId" class="btn btn-primary">Devamını okuyun &rarr;</a>
+            <p><span class="glyphicon glyphicon-tags"> @item.Etikets.Count()</span></p>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on @String.Format("{0:ddd, MMM d, yyyy}", item.Tarih)
+            <a href="/Uye/UyeProfil/@item.Uye.UyeId">@item.Uye.KullaniciAdi</a>
+            <img src="@item.Foto" class="img-circle img-responsive" width="25" />
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-8 text-center">
+        <div class="pagedList pagination-lg">
+            @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.Classic)
+        </div>
+    </div>
+</div>
+

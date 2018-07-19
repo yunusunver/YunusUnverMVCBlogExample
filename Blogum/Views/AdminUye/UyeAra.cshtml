@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Blogum.Models.Uye>
+
+@{
+    ViewBag.Title = "UyeAra";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*@using GridMvc.Html
+
+
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(x=> x.Yetki.Yetki1).Titled("Yetki").SetWidth(110).Sortable(true).Filterable(true);
+    columns.Add(x => x.KullaniciAdi).Titled("Kullanıcı Adı").Sortable(true).Filterable(true);
+    columns.Add(x => x.AdSoyad).Titled("Ad Soyad").Sortable(true).Filterable(true);
+    columns.Add(x => x.Email).Titled("Email").Sortable(true).Filterable(true);
+    
+
+}).WithPaging(20)*@
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Yetki</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Ad Soyad</th>
+                    <th>Email</th>
+                    <th>İşlemler</th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Yetki</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Ad Soyad</th>
+                    <th>Email</th>
+                    <th>İşlemler</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Yetki.Yetki1</td>
+                        <td>@item.KullaniciAdi</td>
+                        <td>@item.AdSoyad</td>
+                        <td>@item.Email</td>
+                        <td>
+                            @Html.ActionLink("Düzenle", "Edit", new { id = item.UyeId }) |
+                            @Html.ActionLink("Detay", "Details", new { id = item.UyeId }) |
+                            @Html.ActionLink("Sil", "Delete", new { id = item.UyeId })
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

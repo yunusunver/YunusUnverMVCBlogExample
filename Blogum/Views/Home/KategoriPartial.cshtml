@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Blogum.Models.Kategori>
+
+@{ 
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <ul class="list-unstyled mb-0">
+            @foreach (var item in Model)
+            {
+
+                <li>
+                    <a href="/Home/KategoriMakale/@item.KategoriId">@item.KategoriAdi (@item.Makales.Count())</a>
+                </li>
+
+
+            }
+        </ul>
+        </div>
+   
+</div>

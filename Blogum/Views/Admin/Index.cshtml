@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Blogum.Models.Yorum>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+ <div class="container-fluid">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Anasayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Özet</li>
+            </ol>
+            <!-- Icon Cards-->
+            <!-- Area Chart Example-->
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Example Bar Chart Card-->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-bar-chart"></i> Blog İstatistikleri
+                        </div>
+                        <div class="card-body">
+                            
+                               
+                            <div class=" text-center my-auto">
+                                <div class="h4 mb-0 text-success">@ViewBag.kategoriSayisi</div>
+                                <div class="small text-muted">Kategori Sayısı</div>
+                                <hr>
+                                <div class="h4 mb-0 text-primary">@ViewBag.makaleSayisi</div>
+                                <div class="small text-muted">Makale Sayısı</div>
+                                <hr>
+                                <div class="h4 mb-0 text-dark">@ViewBag.uyeSayisi</div>
+                                <div class="small text-muted">Üye Sayısı</div>
+                                <hr>
+                                <div class="h4 mb-0 text-warning">@ViewBag.yorumSayisi</div>
+                                <div class="small text-muted">Yorum Sayısı</div>
+
+
+                            </div>
+                           
+                        </div>
+                        
+                    </div>
+                  
+                </div>
+                <div class="col-lg-4">
+                    
+                    
+                    <!-- Example Notifications Card-->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-bell-o"></i> Son Yorumlar
+                        </div>
+                        <div class="list-group list-group-flush small">
+                            @foreach (var item in Model)
+                            {
+                                <a class="list-group-item list-group-item-action" href="/Home/MakaleDetay/@item.MakaleId">
+                                    <div class="media">
+                                        <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" alt="" width="50">
+                                        <div class="media-body">
+                                            <strong> @item.Uye.KullaniciAdi </strong>adlı kullanıcı @item.Makale.Baslik makalesine yorum yaptı.
+                                            
+                                            <div class="text-muted smaller">@item.Tarih</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+
+
+
+                            <a class="list-group-item list-group-item-action" href="/AdminYorum/Index">Tüm yorumları listele</a>
+                        </div>
+                        <div class="card-footer small text-muted">En son yorum   @ViewBag.sonYorumTarihi tarihinde yapıldı.</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Example DataTables Card-->
+           
+        </div>
+

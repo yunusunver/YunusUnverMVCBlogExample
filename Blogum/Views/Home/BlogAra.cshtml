@@ -1,0 +1,132 @@
+﻿@model IEnumerable<Blogum.Models.Makale>
+
+@{
+    ViewBag.Title = "BlogAra";
+
+}
+
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Kategori Adı</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Başlık</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+
+                </tr>
+            </thead>
+        
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.Kategori.KategoriAdi</td>
+                    <td><a href="/Uye/UyeProfil/@item.UyeId">@item.Uye.KullaniciAdi</a></td>
+                    <td><a href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik</a></td>
+                    <td>@item.Tarih</td>
+                    <td>@item.Okunan</td>
+                  
+
+                </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*@using GridMvc.Html
+
+
+
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(x=> x.Kategori.KategoriAdi).Titled("Kategori Adı").SetWidth(110).Sortable(true).Filterable(true);
+        columns.Add(x => x.Uye.KullaniciAdi).Titled("Kullanıcı Adı").Sortable(true).Filterable(true);
+        columns.Add(x => x.Baslik).Sortable(true).Filterable(true);
+        columns.Add(x => x.Tarih).Sortable(true).Filterable(true);
+        columns.Add(x => x.Okunan).Sortable(true).Filterable(true);
+
+    }).WithPaging(20)*@
+
+
+
+
+
+
+@*<h2>BlogAra</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Kategori.KategoriAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uye.KullaniciAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Baslik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Icerik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarih)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Okunan)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kategori.KategoriAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye.KullaniciAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baslik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icerik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Foto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tarih)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Okunan)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.MakaleId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.MakaleId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.MakaleId })
+            </td>
+        </tr>
+    }
+
+    </table>*@

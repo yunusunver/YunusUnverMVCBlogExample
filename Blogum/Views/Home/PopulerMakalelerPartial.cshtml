@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Blogum.Models.Makale>
+
+@{
+    Layout = null;
+}
+
+<ul>
+    @foreach (var item in Model)
+    {
+    <li><a href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik </a>  (@item.Okunan)</li>
+    }
+</ul>
+

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Blogum.Models.Makale>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+@*<p>
+    @Html.ActionLink("Makale Oluştur", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Kategori Adı
+        </th>
+        <th>
+            Kullanıcı Adı
+        </th>
+        <th>
+            Başlık
+        </th>
+       
+        <th>
+            Resim
+        </th>
+        <th>
+            Tarih
+        </th>
+        <th>
+            Okunma Sayısı
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kategori.KategoriAdi)
+            </td>
+            <td>
+                <a href="/Uye/UyeProfil/@item.UyeId">@item.Uye.KullaniciAdi</a>
+            </td>
+            <td>
+                <a href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik</a>
+            </td>
+           
+            <td>
+                <img src="@item.Foto" alt="@item.Baslik"  width="70"/>
+            </td>
+            <td>
+                @String.Format("{0:ddd, MMM d, yyyy}", item.Tarih)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Okunan)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.MakaleId }) |
+                @Html.ActionLink("Detay", "Details", new { id = item.MakaleId }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.MakaleId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="row">
+    <div class="col-md-8 text-center">
+        <div class="pagedList pagination-lg">
+            @Html.PagedListPager((IPagedList)Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.Classic)
+        </div>
+    </div>
+</div>*@
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Kategori</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+                    <th>İşlemler</th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Kategori</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+                    <th>İşlemler</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.Baslik</td>
+                    <td>@item.Kategori.KategoriAdi</td>
+                    <td>@item.Tarih</td>
+                    <td>@item.Okunan</td>
+                    <td>
+                        @Html.ActionLink("Düzenle", "Edit", new { id = item.MakaleId }) |
+                        @Html.ActionLink("Detay", "Details", new { id = item.MakaleId }) |
+                        @Html.ActionLink("Sil", "Delete", new { id = item.MakaleId })
+                    </td>
+
+                </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
