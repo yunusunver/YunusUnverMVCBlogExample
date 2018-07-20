@@ -1,2 +1,2 @@
-# Blog Site Link Adres
+# Blog Site Link Adress
 http://www.yazilimblog.somee.com/
